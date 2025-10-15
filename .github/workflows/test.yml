@@ -1,0 +1,67 @@
+name: test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test Inspect Docker Images Action
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Test resolving multiple images
+        id: test-multi
+        uses: ./
+        with:
+          image-urls: |
+            nginx:latest
+            hello-world:latest
+        continue-on-error: true
+      
+      - name: Show results
+        run: |
+          echo "Test completed"
+          if [[ "${{ steps.test-multi.outcome }}" == "success" ]]; then
+            echo "✅ Action succeeded"
+            echo "JSON Output: ${{ steps.test-multi.outputs.image-digest-urls }}"
+            
+            # Extract digest URLs using jq (array format)
+            RESULTS='${{ steps.test-multi.outputs.image-digest-urls }}'
+            FIRST_DIGEST_URL=$(echo "$RESULTS" | jq -r '.[0] // "not-found"')
+            SECOND_DIGEST_URL=$(echo "$RESULTS" | jq -r '.[1] // "not-found"')
+            echo "First image digest URL: $FIRST_DIGEST_URL"
+            echo "Second image digest URL: $SECOND_DIGEST_URL"
+          else
+            echo "❌ Action failed"
+            echo "This might indicate an issue with the action"
+          fi
+      
+      - name: Validate PowerShell syntax
+        run: |
+          pwsh -Command "
+          try {
+            \$null = [System.Management.Automation.PSParser]::Tokenize((Get-Content './action.ps1' -Raw), [ref]\$null)
+            Write-Output '✅ PowerShell syntax is valid'
+          } catch {
+            Write-Error 'PowerShell syntax error in action.ps1'
+            Write-Error \$_.Exception.Message
+            exit 1
+          }"
+      
+      - name: Test action.yml validity
+        run: |
+          if [[ ! -f "action.yml" ]]; then
+            echo "❌ action.yml not found"
+            exit 1
+          fi
+          
+          # Basic YAML syntax check
+          python -c "import yaml; yaml.safe_load(open('action.yml'))" || exit 1
+          echo "✅ action.yml is valid YAML"
