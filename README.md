@@ -45,7 +45,6 @@ Works with any Docker-compatible registry:
 | Output | Description |
 |--------|-------------|
 | `image-digest-urls` | JSON array of digest URLs in the same order as input |
-| `image-created-timestamps` | JSON array of image creation timestamps in the same order as input |
 | `latest-image-timestamp` | Timestamp of the most recently created image among all processed images |
 
 ### Output Structure
@@ -55,14 +54,6 @@ Works with any Docker-compatible registry:
 [
   "nginx@sha256:abc123...",
   "ghcr.io/owner/repo/app@sha256:def456..."
-]
-```
-
-**image-created-timestamps:**
-```json
-[
-  "2023-12-01T10:30:00Z",
-  "2023-11-28T14:45:22Z"
 ]
 ```
 
@@ -92,10 +83,9 @@ jobs:
             ghcr.io/myorg/frontend:latest
             mcr.microsoft.com/dotnet/aspnet:8.0
       
-      - name: Use Resolved Digest URLs and Timestamps
+      - name: Use Resolved Digest URLs and Latest Timestamp
         run: |
           DIGESTS='${{ steps.resolve.outputs.image-digest-urls }}'
-          CREATED_TIMESTAMPS='${{ steps.resolve.outputs.image-created-timestamps }}'
           LATEST_TIMESTAMP='${{ steps.resolve.outputs.latest-image-timestamp }}'
           
           # Access specific images by index (maintains input order)
@@ -107,16 +97,8 @@ jobs:
           echo "Frontend digest URL: $FRONTEND_DIGEST"
           echo "ASP.NET digest URL: $ASPNET_DIGEST"
           
-          # Access creation timestamps
-          NGINX_CREATED=$(echo "$CREATED_TIMESTAMPS" | jq -r '.[0]')
-          FRONTEND_CREATED=$(echo "$CREATED_TIMESTAMPS" | jq -r '.[1]')
-          ASPNET_CREATED=$(echo "$CREATED_TIMESTAMPS" | jq -r '.[2]')
-          
-          echo "Nginx created: $NGINX_CREATED"
-          echo "Frontend created: $FRONTEND_CREATED"
-          echo "ASP.NET created: $ASPNET_CREATED"
-          
           # Show the latest image timestamp
+          echo "Latest image timestamp: $LATEST_TIMESTAMP"
           echo "Latest image timestamp: $LATEST_TIMESTAMP"
           
           # Or iterate over all digest URLs
