@@ -12,9 +12,6 @@ outputs:
   image-digest-urls:
     description: 'JSON array of digest URLs in the same order as input'
     value: ${{ steps.get-digests.outputs.digests }}
-  image-created-timestamps:
-    description: 'JSON array of image creation timestamps in the same order as input'
-    value: ${{ steps.get-digests.outputs.created-timestamps }}
   latest-image-timestamp:
     description: 'Timestamp of the most recently created image among all processed images'
     value: ${{ steps.get-digests.outputs.latest-timestamp }}
