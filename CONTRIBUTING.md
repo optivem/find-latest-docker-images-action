@@ -29,8 +29,8 @@ Thank you for your interest in contributing to this project! Here's how you can 
 
 1. Clone your fork:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/find-docker-images-action.git
-   cd find-docker-images-action
+   git clone https://github.com/YOUR-USERNAME/find-latest-docker-images-action.git
+   cd find-latest-docker-images-action
    ```
 
 2. Make sure you have PowerShell installed for testing the script locally

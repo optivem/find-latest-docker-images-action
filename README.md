@@ -1,6 +1,6 @@
-# Find Docker Images Action
+# Find Latest Docker Images Action
 
-[![test](https://github.com/optivem/find-docker-images-action/actions/workflows/test.yml/badge.svg)](https://github.com/optivem/find-docker-images-action/actions/workflows/test.yml)
+[![test](https://github.com/optivem/find-latest-docker-images-action/actions/workflows/test.yml/badge.svg)](https://github.com/optivem/find-latest-docker-images-action/actions/workflows/test.yml)
 
 A GitHub Action that resolves Docker image digests from any container registry for multiple images in batch.
 
@@ -99,7 +99,7 @@ jobs:
     steps:
       - name: Resolve Docker Image Digests
         id: resolve
-        uses: optivem/find-docker-images-action@v1
+        uses: optivem/find-latest-docker-images-action@v1
         with:
           image-urls: |
             nginx:latest
@@ -150,7 +150,7 @@ jobs:
 
 ```yaml
 - name: Resolve Docker Hub Images
-  uses: optivem/find-docker-images-action@v1
+  uses: optivem/find-latest-docker-images-action@v1
   with:
     image-urls: |
       nginx:latest
@@ -162,7 +162,7 @@ jobs:
 
 ```yaml
 - name: Resolve GitHub Container Registry Images
-  uses: optivem/find-docker-images-action@v1
+  uses: optivem/find-latest-docker-images-action@v1
   with:
     image-urls: |
       ghcr.io/myorg/frontend:latest
@@ -174,7 +174,7 @@ jobs:
 
 ```yaml
 - name: Resolve Current Repository Images
-  uses: optivem/find-docker-images-action@v1
+  uses: optivem/find-latest-docker-images-action@v1
   with:
     image-urls: |
       ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/app:latest
@@ -185,7 +185,7 @@ jobs:
 
 ```yaml
 - name: Resolve Images from Multiple Registries
-  uses: optivem/find-docker-images-action@v1
+  uses: optivem/find-latest-docker-images-action@v1
   with:
     image-urls: |
       nginx:latest
@@ -198,7 +198,7 @@ jobs:
 
 ```yaml
 - name: Resolve Images with JSON Array
-  uses: optivem/find-docker-images-action@v1
+  uses: optivem/find-latest-docker-images-action@v1
   with:
     image-urls: '["nginx:latest", "ghcr.io/myorg/app:latest", "redis:alpine"]'
 ```
@@ -216,7 +216,7 @@ For private registries, make sure Docker is authenticated before running this ac
     password: ${{ secrets.GITHUB_TOKEN }}
 
 - name: Resolve Private Images
-  uses: optivem/find-docker-images-action@v1
+  uses: optivem/find-latest-docker-images-action@v1
   with:
     image-urls: |
       ghcr.io/myorg/private-app:latest
@@ -263,8 +263,8 @@ Example of using resolved digests:
 1. Fork the repository
 2. Clone your fork:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/find-docker-images-action.git
-   cd find-docker-images-action
+   git clone https://github.com/YOUR-USERNAME/find-latest-docker-images-action.git
+   cd find-latest-docker-images-action
    ```
 
 3. Make sure you have PowerShell installed for testing the script locally

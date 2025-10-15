@@ -59,7 +59,7 @@ body:
       render: yaml
       placeholder: |
         - name: Resolve Docker Image Digests
-          uses: optivem/find-docker-images-action@v1
+          uses: optivem/find-latest-docker-images-action@v1
           with:
             image-urls: |
               nginx:latest

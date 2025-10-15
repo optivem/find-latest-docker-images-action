@@ -1,4 +1,4 @@
-name: 'Find Docker Images'
+name: 'Find Latest Docker Images'
 description: 'Finds Docker images and resolves their digests from any container registry'
 author: 'Optivem'
 branding:

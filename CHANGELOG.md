@@ -8,14 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- **BREAKING**: Repository renamed from `optivem/resolve-latest-docker-digests-action` to `optivem/find-docker-images-action`
+- **BREAKING**: Repository renamed from `optivem/resolve-latest-docker-digests-action` to `optivem/find-latest-docker-images-action`
 - **BREAKING**: Input parameter renamed from `images` to `image-urls` for clarity
 - **BREAKING**: Output parameter renamed from `image-digests` to `image-digest-urls` for clarity
 - **BREAKING**: Output format changed from dictionary to JSON array for simpler usage
 - **BREAKING**: Simplified input format - now accepts array of image URLs instead of objects with repoOwner/repoName/imageName
 - **BREAKING**: Action now supports any Docker registry, not just GitHub Container Registry
 - Input format enhanced to support both newline-separated list and JSON array for maximum flexibility
-- Users should update their workflow files to use the new repository name: `optivem/find-docker-images-action@v1`
+- Users should update their workflow files to use the new repository name: `optivem/find-latest-docker-images-action@v1`
 - Enhanced flexibility - works with Docker Hub, GHCR, ACR, ECR, GCR, and private registries
 - Improved logging and error handling
 - Fail-fast behavior - stops immediately on first failure
@@ -74,5 +74,5 @@ image-urls: '["ghcr.io/myorg/my-repo/my-app:latest", "nginx:latest", "mcr.micros
 - Detailed logging with emojis for better visibility
 - Robust error handling with meaningful error messages
 
-[Unreleased]: https://github.com/optivem/find-docker-images-action/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/optivem/find-docker-images-action/releases/tag/v1.0.0
+[Unreleased]: https://github.com/optivem/find-latest-docker-images-action/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/optivem/find-latest-docker-images-action/releases/tag/v1.0.0
