@@ -155,8 +155,12 @@ try {
             $digestUrl = $imageUrl + "@" + $digest
         }
         
-        # Extract creation timestamp from inspect data
-        $createdTimestamp = $inspectData.Created
+        # Extract creation timestamp from inspect data (use docker inspect with format for consistent ISO format)
+        $createdTimestamp = docker inspect $imageUrl --format='{{.Created}}'
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host "Warning: Could not get timestamp for $imageUrl, using inspect data"
+            $createdTimestamp = $inspectData.Created
+        }
         
         $results += $digestUrl
         $inspectResults += $inspectData
@@ -194,7 +198,11 @@ try {
         }
         "created-timestamps=$timestampsJsonOutput" | Out-File -FilePath $GitHubOutput -Append -Encoding utf8
         
-        Write-Host "JSON results, inspect data, and created timestamps written to GitHub output"
+        # Find the latest timestamp
+        $latestTimestamp = $createdTimestamps | Sort-Object { [DateTime]::Parse($_) } | Select-Object -Last 1
+        "latest-timestamp=$latestTimestamp" | Out-File -FilePath $GitHubOutput -Append -Encoding utf8
+        
+        Write-Host "JSON results, inspect data, created timestamps, and latest timestamp written to GitHub output"
     }
     
     # Log full output
@@ -225,6 +233,11 @@ try {
         $formattedTimestampsOutput = $createdTimestamps | ConvertTo-Json -Depth 10
     }
     Write-Output $formattedTimestampsOutput
+    
+    # Show latest timestamp
+    $latestTimestamp = $createdTimestamps | Sort-Object { [DateTime]::Parse($_) } | Select-Object -Last 1
+    Write-Host ""
+    Write-Host "Latest Image Timestamp: $latestTimestamp"
     
     Write-Host ""
     Write-Host "Batch digest resolution completed successfully!"
