@@ -1,6 +1,7 @@
 # Find Latest Docker Images Action
 
 [![test](https://github.com/optivem/find-latest-docker-images-action/actions/workflows/test.yml/badge.svg)](https://github.com/optivem/find-latest-docker-images-action/actions/workflows/test.yml)
+[![Release](https://github.com/optivem/find-latest-docker-images-action/actions/workflows/release.yml/badge.svg)](https://github.com/optivem/find-latest-docker-images-action/actions/workflows/release.yml)
 
 A GitHub Action that resolves Docker image digests from any container registry for multiple images in batch.
 
