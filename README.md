@@ -4,6 +4,7 @@
 [![Release](https://github.com/optivem/find-latest-docker-images-action/actions/workflows/release.yml/badge.svg)](https://github.com/optivem/find-latest-docker-images-action/actions/workflows/release.yml)
 
 [![GitHub release](https://img.shields.io/github/release/optivem/find-latest-docker-images-action.svg)](https://github.com/optivem/find-latest-docker-images-action/releases)
+[![GitHub](https://img.shields.io/github/license/optivem/find-latest-docker-images-action)](LICENSE)
 
 A GitHub Action that resolves Docker image digests from any container registry for multiple images in batch.
 
